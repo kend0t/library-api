@@ -48,3 +48,21 @@ class TestReviewAPI(APITestCase):
         response = self.client.get(self.reviews_url)
         assert response.status_code == status.HTTP_200_OK
         assert len(response.data) >= 1
+
+    def test_list_reviews_invalid_book(self):
+        """Test case for listing reviews with invalid book ID"""
+        wrong_url = reverse("reviews", args=[9999])
+        response = self.client.get(wrong_url)
+        assert response.status_code == status.HTTP_404_NOT_FOUND
+        assert response.data["message"] == "Book not found"
+
+    def test_create_review_invalid_book(self):
+        """Test case for creating a review with invalid book ID"""
+        wrong_url = reverse("reviews", args=[9999])
+        data = {
+            "rating": 4,
+            "comment": "Test"
+        }
+        response = self.client.post(wrong_url, data, format="json")
+        assert response.status_code == status.HTTP_404_NOT_FOUND
+        assert response.data["message"] == "Book not found"
