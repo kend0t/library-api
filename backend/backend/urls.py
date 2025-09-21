@@ -5,6 +5,7 @@ from drf_yasg import openapi
 from drf_yasg.views import get_schema_view
 from library_api.lib.api.users import RegisterUserView
 from rest_framework_simplejwt.views import TokenObtainPairView
+from rest_framework import permissions
 
 schema_view = get_schema_view(
     openapi.Info(
@@ -12,7 +13,9 @@ schema_view = get_schema_view(
         default_version="1.0.0",
         description="API Documentation of Library App"
     ),
-    public=True
+    public=True,
+    permission_classes=(permissions.AllowAny,),
+    authentication_classes=[]
 )
 urlpatterns = [
     path('admin/', admin.site.urls),

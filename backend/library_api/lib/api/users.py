@@ -5,11 +5,20 @@ from rest_framework.permissions import AllowAny
 from library_api.lib.services.user_services import register_user
 from library_api.lib.serializers.user_serializer import UserSerializer
 from library_api.models import User
+from drf_yasg.utils import swagger_auto_schema
+from drf_yasg import openapi
 
 
 class RegisterUserView(APIView):
     permission_classes = [AllowAny]
 
+    @swagger_auto_schema(
+        operation_description="Register a new user",
+        responses={
+            201: UserSerializer,
+            400: "Username is already taken / Incomplete Data"
+        }
+    )
     def post(self, request):
         """Endpoint for registering a new account"""
         if User.objects.filter(username=request.data.get("username")).exists():
