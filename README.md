@@ -14,14 +14,15 @@ A simple Django REST Framework API with JWT authentication for managing books an
 ## Endpoints
 ### Auth
 - **POST** `/api/auth/register/` -> Register a new user
-  - **Inputs**: Username and Password
+  - **Inputs**: username and password
 - **POST** `/api/auth/login/` -> Login and get JWT tokens
-  -  **Inputs**: Username and Password
+  -  **Inputs**: username and password
 - Use the `access` token in your Auth headers to use the books and reviews endpoints
 
 ### Books
 - **GET** `/api/books/` -> List all books
 - **POST** `/api/books/` -> Create a new book
+  -  **Inputs**: title, author, published_date (yyyy-mm-dd)
 - **GET** `/api/books/{book_id}/` -> Retrieve a book
 - **PATCH** `/api/books/{book_id}/` -> Update a book
 - **DELETE** `/api/books/{book_id}/` -> Delete a book
@@ -29,6 +30,7 @@ A simple Django REST Framework API with JWT authentication for managing books an
 ### Reviews
 - **GET** `/api/books/{book_id}/reviews/` -> List reviews for a book
 - **POST** `/api/books/{book_id}/reviews/` -> Add a review to a book
+  -  **Inputs**: rating (1-5), comment
 
 ### Docs
 - **GET** `/swagger/` -> Swagger UI (API Documentation)
